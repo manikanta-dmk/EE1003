@@ -1,0 +1,242 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Uncomment if needed for pdflatex
+
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+%\usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{standalone} % For including external TikZ files
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{11.16.3.21.1}
+\author{EE24BTECH11013 - MANIKANTA D}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:}\\
+In a class of 60 students, 30 opted for NCC, 32 opted for NSS, and 24 opted for both NCC and NSS. If one of these students is selected at random, find the probability that:
+\begin{enumerate}
+    \item The student opted for NCC or NSS.
+\end{enumerate}
+
+\textbf{Theoretical Solution}:\\
+The total number of students in the class is:
+\begin{align}
+    |S| = 60
+\end{align}
+The number of students who opted for NCC or NSS can be calculated using the formula for the union of two sets:
+\begin{align}
+    |A \cup B| = |A| + |B| - |A \cap B|
+\end{align}
+where:
+\begin{align}
+    |A| &= 30 \quad \text{(students who opted for NCC)} \\
+    |B| &= 32 \quad \text{(students who opted for NSS)} \\
+    |A \cap B| &= 24 \quad \text{(students who opted for both NCC and NSS)}.
+\end{align}
+Substituting these values, we get:
+\begin{align}
+    |A \cup B| = 30 + 32 - 24 = 38
+\end{align}
+The probability of a student opting for NCC or NSS is:
+\begin{align}
+    P(A \cup B) = \frac{|A \cup B|}{|S|} = \frac{38}{60} = \frac{19}{30} \approx 0.6333
+\end{align}
+\textbf{Boolean Logic Solution:}\\
+To determine the probability of selecting a student who opted for either NCC or NSS, we define the following sets:
+\begin{itemize}
+    \item \( A \): Set of students who opted for NCC.
+    \item \( B \): Set of students who opted for NSS.
+\end{itemize}
+
+The union of these sets, \( A \cup B \), represents students who opted for either NCC, NSS, or both. Using the principle of inclusion-exclusion:
+\begin{align}
+    |A \cup B| &= |A| + |B| - |A \cap B|,
+\end{align}
+where:
+\begin{align}
+    |A| &= 30 \quad \text{(students in NCC)}, \\
+    |B| &= 32 \quad \text{(students in NSS)}, \\
+    |A \cap B| &= 24 \quad \text{(students in both NCC and NSS)}.
+\end{align}
+
+Substituting the values:
+\begin{align}
+    |A \cup B| &= 30 + 32 - 24 = 38.
+\end{align}
+
+The probability of selecting a student from \( A \cup B \) is:
+\begin{align}
+    P(A \cup B) &= \frac{|A \cup B|}{|S|},
+\end{align}
+where \( |S| = 60 \) is the total number of students in the class. Thus:
+\begin{align}
+    P(A \cup B) &= \frac{38}{60} = \frac{19}{30} \approx 0.6333.
+\end{align}
+
+\textbfBoolean Logic Verification:}\\
+In Boolean terms:
+\begin{itemize}
+    \item \( A \cup B \): True if a student is in \( A \) or \( B \) (or both).
+    \item \( A \cap B \): True only if a student is in both \( A \) and \( B \).
+\end{itemize}
+
+The inclusion-exclusion principle ensures that overlapping elements (\( A \cap B \)) are not double-counted in \( A \cup B \). This logical structure guarantees an accurate calculation of the total count and its probability.
+
+
+\textbf{Introduction}\\
+This task involves calculating the probability of a student opting for NCC or NSS using set theory and probability principles. The process is implemented in a C program, compiled into a shared object (.so) file, and then processed in Python to simulate the selection and visualize the results.
+
+\textbf{C Code Description}:\\
+The C program calculates the probability by simulating random selections of students and tracking how many belong to the union of the NCC and NSS groups. The program uses the \texttt{rand()} function to generate random samples and increments counters based on set membership.
+
+\textbf{Python Code Description}:\\
+The Python code performs the following steps:
+\begin{enumerate}
+    \item Loads the shared object file generated by the C program using the \texttt{ctypes} library.
+    \item Simulates a specified number of trials (e.g., 1,000,000 selections).
+    \item Calculates the probability of selecting a student in $A \cup B$ using the formula:
+    \begin{align}
+        P(A \cup B) = \frac{\text{frequency of students in } A \cup B}{\text{total trials}}
+    \end{align}
+    \item Plots the probability distribution using \texttt{matplotlib}.
+\end{enumerate}
+
+\textbf{Graphical Output}:\\
+The Python code generates a bar chart where:
+\begin{itemize}
+    \item The x-axis represents the outcome: $A \cup B$ (students in NCC or NSS).
+    \item The y-axis represents the probabilities, ranging from 0 to 1.
+    \item The bar height corresponds to the calculated probability $P(A \cup B) \approx 0.6333$.
+\end{itemize}
+
+\textbf{Stemplot Distribution}:\\
+The stemplot shows a single vertical line at $A \cup B$ on the x-axis with a height corresponding to its probability (0.6333).
+
+\textbf{Probability Mass Function (PMF)}:\\
+The PMF represents the probability of selecting a student in $A \cup B$:
+\[
+P(X = x) = 
+\begin{cases} 
+\frac{38}{60}, & x \in A \cup B, \\ 
+\frac{22}{60}, & x \notin A \cup B, \\ 
+0, & x \notin S.
+\end{cases}
+\]
+
+\textbf{Cumulative Distribution Function (CDF)}:\\
+The CDF represents the cumulative probability of outcomes up to a given value $x$, defined as:
+\[
+F(x) = P(X \leq x) = \sum_{k \in S, k \leq x} P(X = k).
+\]
+For the class of students:
+\[
+F(x) = 
+\begin{cases} 
+0, & x < \text{Not in } A \cup B, \\ 
+\frac{22}{60}, & x = \text{Not in } A \cup B, \\ 
+1, & x \geq \text{In } A \cup B.
+\end{cases}
+\]
+
+\textbf{Simulation Process}:\\
+The simulation process is as follows:
+\begin{enumerate}
+    \item The set of students is represented as:
+    \[
+    S = \{\text{In } A \cup B, \text{Not in } A \cup B\},
+    \]
+    with 38 students in $A \cup B$ and 22 not in $A \cup B$.
+    \item For each simulated selection, a random integer $X$ is generated such that:
+    \[
+    X \in \{1, 2, \dots, 60\}.
+    \]
+    \item If $X \leq 38$, it corresponds to a student in $A \cup B$; otherwise, it corresponds to a student not in $A \cup B$.
+    \item The number of occurrences of each outcome is tracked over $N$ trials.
+\end{enumerate}
+
+\textbf{Calculation of Probabilities}:\\
+\subsubsection*{Probability of Selecting a Student in $A \cup B$ (PMF)}
+The probability is calculated as:
+\[
+P(A \cup B) = \frac{\text{Number of students in } A \cup B}{\text{Total students}} = \frac{38}{60} \approx 0.6333.
+\]
+
+\textbf{Cumulative Probability (CDF)}:\\
+The cumulative probability is:
+\[
+F(x) = 
+\begin{cases} 
+P(\text{Not in } A \cup B), & x = \text{Not in } A \cup B, \\ 
+P(\text{Not in } A \cup B) + P(\text{In } A \cup B), & x = \text{In } A \cup B.
+\end{cases}
+\]
+For the class of students:
+\[
+F(\text{Not in } A \cup B) = \frac{22}{60}, \quad F(\text{In } A \cup B) = 1.
+\]
+
+\textbf{Output Representation}:\\
+The computed probabilities are represented in two forms:
+\begin{itemize}
+    \item PMF: The probability of selecting a student in $A \cup B$ or not in $A \cup B$.
+    \item CDF: The cumulative probabilities up to each outcome.
+\end{itemize}
+
+\textbf{Conclusion}:\\
+This task demonstrates the use of C and Python for probabilistic simulations and visualizations. The probability of selecting a student in $A \cup B$ is calculated as \textbf{0.6333}, matching the theoretical value.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{fig.png}
+    \caption{Probability for opting NCC or NSS}
+    \label{fig:Plot}
+    \end{figure}
+
+\end{document}
