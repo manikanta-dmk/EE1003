@@ -1,0 +1,199 @@
+\let\negmedspace\undefined
+\let\negthickspace\undefined
+\documentclass[journal]{IEEEtran}
+\usepackage[a5paper, margin=10mm, onecolumn]{geometry}
+%\usepackage{lmodern} % Uncomment if needed for pdflatex
+
+
+\setlength{\headheight}{1cm} % Set the height of the header box
+\setlength{\headsep}{0mm}     % Set the distance between the header box and the top of the text
+
+\usepackage{gvv-book}
+\usepackage{gvv}
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{mathtools}
+\usepackage{gensymb}
+\usepackage{comment}
+\usepackage[breaklinks=true]{hyperref}
+\usepackage{tkz-euclide} 
+\usepackage{listings}
+%\usepackage{gvv}                                        
+\def\inputGnumericTable{}                                 
+\usepackage[latin1]{inputenc}                                
+\usepackage{color}                                            
+\usepackage{array}                                            
+\usepackage{longtable}                                       
+\usepackage{calc}                                             
+\usepackage{multirow}                                         
+\usepackage{hhline}                                           
+\usepackage{ifthen}                                           
+\usepackage{lscape}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{standalone} % For including external TikZ files
+
+\begin{document}
+
+\bibliographystyle{IEEEtran}
+\vspace{3cm}
+
+\title{11.16.3.21.1}
+\author{EE24BTECH11013 - MANIKANTA D}
+% \maketitle
+% \newpage
+% \bigskip
+{\let\newpage\relax\maketitle}
+
+\renewcommand{\thefigure}{\theenumi}
+\renewcommand{\thetable}{\theenumi}
+\setlength{\intextsep}{10pt} % Space between text and floats
+
+\numberwithin{equation}{enumi}
+\numberwithin{figure}{enumi}
+\renewcommand{\thetable}{\theenumi}
+
+\textbf{Question:}\\
+In a class of 60 students, 30 opted for NCC, 32 opted for NSS, and 24 opted for both NCC and NSS. If one of these students is selected at random, find the probability that:
+\begin{enumerate}
+    \item The student opted for NCC or NSS.
+\end{enumerate}
+
+\textbf{Theoretical Solution}:\\
+The total number of students in the class is:
+\begin{align}
+    |S| = 60
+\end{align}
+The number of students who opted for NCC or NSS can be calculated using the formula for the union of two sets:
+\begin{align}
+    |A \cup B| = |A| + |B| - |A \cap B|
+\end{align}
+where:
+\begin{align}
+    |A| &= 30 \quad \text{(students who opted for NCC)} \\
+    |B| &= 32 \quad \text{(students who opted for NSS)} \\
+    |A \cap B| &= 24 \quad \text{(students who opted for both NCC and NSS)}.
+\end{align}
+Substituting these values, we get:
+\begin{align}
+    |A \cup B| = 30 + 32 - 24 = 38
+\end{align}
+The probability of a student opting for NCC or NSS is:
+\begin{align}
+    P(A \cup B) = \frac{|A \cup B|}{|S|} = \frac{38}{60} = \frac{19}{30} \approx 0.6333
+\end{align}
+\section{\textbf{Boolean Logic Solution}}
+Using the Boolean logic principle for set operations, we apply the formula for the union of two sets:
+
+\begin{equation}
+    n(A \cup B) = n(A) + n(B) - n(A \cap B)
+\end{equation}
+
+Substituting the given values:
+
+\begin{equation}
+    n(A \cup B) = 30 + 32 - 24 = 38
+\end{equation}
+
+Now, the probability of selecting a student who opted for either NCC or NSS is:
+
+\begin{equation}
+    P(A \cup B) = \frac{n(A \cup B)}{n(U)} = \frac{38}{60} = \frac{19}{30}
+\end{equation}
+
+\section{\textbf{Implementation using C and Python}}
+
+\subsection{C Code Description}
+The C program simulates student selection using Boolean logic by randomly generating student indices and checking their set membership. It employs the \texttt{rand()} function to select students and determines their participation using logical AND (\&) and OR (\texttt{|}) operations.
+
+\subsection{Python Code Description}
+The Python script executes the following steps:
+\begin{enumerate}
+    \item Loads the shared object file from the compiled C program using \texttt{ctypes}.
+    \item Runs smulations over a large number of trials (e.g., $10^6$ trials).
+    \item Computes the probability $P(A \cup B)$ using:
+    \begin{equation}
+        P(A \cup B) = \frac{\text{Frequency of students in } A \cup B}{\text{Total trials}}
+    \end{equation}
+    \item Visualizes the results with \texttt{matplotlib}.
+\end{enumerate}
+
+\subsection{Graphical Representation}
+\begin{itemize}
+    \item The x-axis represents two categories: students in $A \cup B$ and those outside it.
+    \item The y-axis represents probabilities ranging from 0 to 1.
+    \item The bar height corresponds to $P(A \cup B) \approx 0.6333$.
+\end{itemize}
+
+\section{\textbf{Probability Functions using Boolean Logic}}
+
+\subsection{Probability Mass Function (PMF)}
+Using Boolean logic, the PMF is defined as:
+\begin{equation}
+    P(X = x) = \begin{cases} 
+    \frac{38}{60}, & x \in A \cup B, \\ 
+    \frac{22}{60}, & x \notin A \cup B. 
+    \end{cases}
+\end{equation}
+
+\subsection{Cumulative Distribution Function (CDF)}
+The CDF, representing cumulative probabilities, is expressed as:
+\begin{equation}
+    F(x) = P(X \leq x) = \sum_{k \leq x} P(X = k).
+\end{equation}
+For this scenario:
+\begin{equation}
+    F(x) = \begin{cases} 
+    0, & x < \text{Not in } A \cup B, \\ 
+    \frac{22}{60}, & x = \text{Not in } A \cup B, \\ 
+    1, & x \geq \text{In } A \cup B.
+    \end{cases}
+\end{equation}
+
+\subsection{Simulation Process}
+\begin{enumerate}
+    \item Define the set $S = \{ \text{In } A \cup B, \text{Not in } A \cup B \}$ with counts $38$ and $22$, respectively.
+    \item Generate a random integer $X \in \{1, 2, \dots, 60\}$.
+    \item Use Boolean conditions: $ (X \leq 38) \Rightarrow X \in A \cup B$; else, $X \notin A \cup B$.
+    \item Track and compute probability over multiple trials.
+\end{enumerate}
+
+\subsection{Final Probability Calculation}
+\begin{equation}
+    P(A \cup B) = \frac{\text{Number of students in } A \cup B}{\text{Total students}} = \frac{38}{60} \approx 0.6333.
+\end{equation}
+
+\subsection{Cumulative Probability}
+\begin{equation}
+    F(x) = \begin{cases} 
+    P(\text{Not in } A \cup B), & x = \text{Not in } A \cup B, \\ 
+    P(\text{Not in } A \cup B) + P(\text{In } A \cup B), & x = \text{In } A \cup B.
+    \end{cases}
+\end{equation}
+
+\subsection{Probability of Selecting $X \notin S$}
+Since all students belong to $S$, we get:
+\begin{equation}
+    P(X \notin S) = 0.
+\end{equation}
+
+\section{Conclusion}
+This implementation demonstrates the application of Boolean logic in probability calculations. The computed probability $P(A \cup B) \approx 0.6333$ matches theoretical expectations. The methodology integrates C programming for simulation and Python for visualization.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\columnwidth]{fig.png}
+    \caption{Probability of opting for NCC or NSS using Boolean logic}
+    \label{fig:Plot}
+\end{figure}
+
+
+
+\end{document}i
